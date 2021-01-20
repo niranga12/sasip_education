@@ -1,0 +1,453 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSet1" targetNamespace="http://tempuri.org/DataSet1.xsd" xmlns:mstns="http://tempuri.org/DataSet1.xsd" xmlns="http://tempuri.org/DataSet1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="SasipConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="SasipConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.SasipConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="Last_paymentTableAdapter" GeneratorDataComponentClassName="Last_paymentTableAdapter" Name="Last_payment" UserDataComponentName="Last_paymentTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SasipConnectionString (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT TOP 1 a.ID, a.Stu_ID,b.Name,c.Name as Subject,c.Branch,c.Fee,((c.Fee)-(a.Overdue)) as total_Payed, a.Pay, a.Overdue, a.Date, a.Status
+FROM S_payment as a
+inner join students as b on  a.Stu_ID=b.S_id
+inner join Subject as c on a.Sub_ID=c.ID
+order by ID DESC</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ID" DataSetColumn="ID" />
+              <Mapping SourceColumn="Stu_ID" DataSetColumn="Stu_ID" />
+              <Mapping SourceColumn="Name" DataSetColumn="Name" />
+              <Mapping SourceColumn="Branch" DataSetColumn="Branch" />
+              <Mapping SourceColumn="Fee" DataSetColumn="Fee" />
+              <Mapping SourceColumn="total_Payed" DataSetColumn="total_Payed" />
+              <Mapping SourceColumn="Pay" DataSetColumn="Pay" />
+              <Mapping SourceColumn="Overdue" DataSetColumn="Overdue" />
+              <Mapping SourceColumn="Date" DataSetColumn="Date" />
+              <Mapping SourceColumn="Status" DataSetColumn="Status" />
+              <Mapping SourceColumn="Subject" DataSetColumn="Subject" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="E_paymentTableAdapter" GeneratorDataComponentClassName="E_paymentTableAdapter" Name="E_payment" UserDataComponentName="E_paymentTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SasipConnectionString (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT TOP 1 a.ID, a.E_ID,b.Name, b.E_type,a.Branch, a.Year, a.Month, a.Payment, a.Date
+FROM E_payment as a
+inner join users as b on a.E_ID=b.E_id
+order by ID DESC</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ID" DataSetColumn="ID" />
+              <Mapping SourceColumn="E_ID" DataSetColumn="E_ID" />
+              <Mapping SourceColumn="Name" DataSetColumn="Name" />
+              <Mapping SourceColumn="Branch" DataSetColumn="Branch" />
+              <Mapping SourceColumn="Year" DataSetColumn="Year" />
+              <Mapping SourceColumn="Month" DataSetColumn="Month" />
+              <Mapping SourceColumn="Payment" DataSetColumn="Payment" />
+              <Mapping SourceColumn="Date" DataSetColumn="Date" />
+              <Mapping SourceColumn="E_type" DataSetColumn="E_type" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="OverdueTableAdapter" GeneratorDataComponentClassName="OverdueTableAdapter" Name="Overdue" UserDataComponentName="OverdueTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SasipConnectionString (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT a.Stu_ID as SID,(select top 1 Name from students where S_id=Stu_ID) as Name,
+                                (select top 1 Branch from students where S_id=Stu_ID) as Branch,c.Name as Subject,
+                            (select top 1 Fee from Subject where Name = c.Name) as Fee, sum(Pay) as payed,
+                             min(Overdue) as Overdue ,
+                            max(a.Date) as LastPayDate,
+                             DATEDIFF(DAY, DATEADD(day, 0, max(a.Date)), GETDATE()) AS DateDiff
+                              FROM S_payment as a
+                               inner join students as b on a.Stu_ID = b.S_id inner join Subject as c on a.Sub_ID = c.ID
+                                where a.Overdue &lt;&gt; 0.00 
+                                group by c.Name,a.Stu_ID</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="SID" DataSetColumn="SID" />
+              <Mapping SourceColumn="Name" DataSetColumn="Name" />
+              <Mapping SourceColumn="Branch" DataSetColumn="Branch" />
+              <Mapping SourceColumn="Subject" DataSetColumn="Subject" />
+              <Mapping SourceColumn="Fee" DataSetColumn="Fee" />
+              <Mapping SourceColumn="payed" DataSetColumn="payed" />
+              <Mapping SourceColumn="Overdue" DataSetColumn="Overdue" />
+              <Mapping SourceColumn="LastPayDate" DataSetColumn="LastPayDate" />
+              <Mapping SourceColumn="DateDiff" DataSetColumn="DateDiff" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="SubjectTableAdapter" GeneratorDataComponentClassName="SubjectTableAdapter" Name="Subject" UserDataComponentName="SubjectTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SasipConnectionString (Web.config)" DbObjectName="Sasip.dbo.Subject" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [Subject] WHERE (([ID] = @Original_ID))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_ID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [Subject] ([Name], [Branch], [Year], [Month], [Fee], [Grade]) VALUES (@Name, @Branch, @Year, @Month, @Fee, @Grade)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Name" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Name" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Branch" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Branch" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Year" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Year" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Month" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Month" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Fee" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="Fee" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Grade" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Grade" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT a.ID, a.Name,a.Branch, a.Year, a.Month, a.Fee, a.Grade,
+                            (SELECT count(Stu_ID) FROM S_payment where Overdue='0.00' and Sub_ID=a.ID) as Complete_Payment,
+                            (SELECT count(Stu_ID) FROM Stu_Sub where Sub_ID=a.ID) as Registered_Student
+                            FROM Subject as a</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [Subject] SET [Name] = @Name, [Branch] = @Branch, [Year] = @Year, [Month] = @Month, [Fee] = @Fee, [Grade] = @Grade WHERE (([ID] = @Original_ID))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Name" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Name" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Branch" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Branch" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Year" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Year" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Month" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Month" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Fee" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="Fee" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Grade" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Grade" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_ID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ID" DataSetColumn="ID" />
+              <Mapping SourceColumn="Name" DataSetColumn="Name" />
+              <Mapping SourceColumn="Branch" DataSetColumn="Branch" />
+              <Mapping SourceColumn="Year" DataSetColumn="Year" />
+              <Mapping SourceColumn="Month" DataSetColumn="Month" />
+              <Mapping SourceColumn="Fee" DataSetColumn="Fee" />
+              <Mapping SourceColumn="Grade" DataSetColumn="Grade" />
+              <Mapping SourceColumn="Complete_Payment" DataSetColumn="Complete_Payment" />
+              <Mapping SourceColumn="Registered_Student" DataSetColumn="Registered_Student" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="StudentTableAdapter" GeneratorDataComponentClassName="StudentTableAdapter" Name="Student" UserDataComponentName="StudentTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SasipConnectionString (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT a.Stu_ID,b.Name,b.Branch,c.Name as Subject, a.Date as Reg_Date ,
+                (SELECT top 1 Pay FROM S_payment as e where e.Stu_ID=a.Stu_ID and e.Sub_ID=a.Sub_ID order by e.ID DESC) as Payed,
+                (SELECT top 1 e.Overdue FROM S_payment as e where e.Stu_ID=a.Stu_ID and e.Sub_ID=a.Sub_ID order by e.ID DESC) as Overdue,
+                (SELECT top 1 e.Status FROM S_payment as e where e.Stu_ID=a.Stu_ID and e.Sub_ID=a.Sub_ID order by e.ID DESC) as Status
+                FROM Stu_Sub as a
+                inner join students as b on a.Stu_ID=b.S_id
+                inner join Subject as c on a.Sub_ID=c.ID
+                Order by a.Stu_ID</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Stu_ID" DataSetColumn="Stu_ID" />
+              <Mapping SourceColumn="Name" DataSetColumn="Name" />
+              <Mapping SourceColumn="Branch" DataSetColumn="Branch" />
+              <Mapping SourceColumn="Subject" DataSetColumn="Subject" />
+              <Mapping SourceColumn="Reg_Date" DataSetColumn="Reg_Date" />
+              <Mapping SourceColumn="Payed" DataSetColumn="Payed" />
+              <Mapping SourceColumn="Overdue" DataSetColumn="Overdue" />
+              <Mapping SourceColumn="Status" DataSetColumn="Status" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ProfitTableAdapter" GeneratorDataComponentClassName="ProfitTableAdapter" Name="Profit" UserDataComponentName="ProfitTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SasipConnectionString (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT YEAR(a.Date) as Year,MONTH(a.Date) as Month,
+SUM(b.Pay) as S_income,SUM(a.Payment) as E_Payments, (SUM(b.Pay)-SUM(a.Payment)) as Profit
+FROM E_payment as a
+inner join  S_payment as b on YEAR(a.Date) = YEAR(b.Date) and MONTH(a.Date)=MONTH(b.Date)
+group by YEAR(a.Date),MONTH(a.Date) 
+order by YEAR(a.Date) DESC</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Year" DataSetColumn="Year" />
+              <Mapping SourceColumn="Month" DataSetColumn="Month" />
+              <Mapping SourceColumn="S_income" DataSetColumn="S_income" />
+              <Mapping SourceColumn="E_Payments" DataSetColumn="E_Payments" />
+              <Mapping SourceColumn="Profit" DataSetColumn="Profit" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSet1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSet1" msprop:Generator_UserDSName="DataSet1">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Last_payment" msprop:Generator_TableClassName="Last_paymentDataTable" msprop:Generator_TableVarName="tableLast_payment" msprop:Generator_RowChangedName="Last_paymentRowChanged" msprop:Generator_TablePropName="Last_payment" msprop:Generator_RowDeletingName="Last_paymentRowDeleting" msprop:Generator_RowChangingName="Last_paymentRowChanging" msprop:Generator_RowEvHandlerName="Last_paymentRowChangeEventHandler" msprop:Generator_RowDeletedName="Last_paymentRowDeleted" msprop:Generator_RowClassName="Last_paymentRow" msprop:Generator_UserTableName="Last_payment" msprop:Generator_RowEvArgName="Last_paymentRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
+              <xs:element name="Stu_ID" msprop:Generator_ColumnVarNameInTable="columnStu_ID" msprop:Generator_ColumnPropNameInRow="Stu_ID" msprop:Generator_ColumnPropNameInTable="Stu_IDColumn" msprop:Generator_UserColumnName="Stu_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Branch" msprop:Generator_ColumnVarNameInTable="columnBranch" msprop:Generator_ColumnPropNameInRow="Branch" msprop:Generator_ColumnPropNameInTable="BranchColumn" msprop:Generator_UserColumnName="Branch" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Fee" msprop:Generator_ColumnVarNameInTable="columnFee" msprop:Generator_ColumnPropNameInRow="Fee" msprop:Generator_ColumnPropNameInTable="FeeColumn" msprop:Generator_UserColumnName="Fee" type="xs:decimal" minOccurs="0" />
+              <xs:element name="total_Payed" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columntotal_Payed" msprop:Generator_ColumnPropNameInRow="total_Payed" msprop:Generator_ColumnPropNameInTable="total_PayedColumn" msprop:Generator_UserColumnName="total_Payed" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Pay" msprop:Generator_ColumnVarNameInTable="columnPay" msprop:Generator_ColumnPropNameInRow="Pay" msprop:Generator_ColumnPropNameInTable="PayColumn" msprop:Generator_UserColumnName="Pay" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Overdue" msprop:Generator_ColumnVarNameInTable="columnOverdue" msprop:Generator_ColumnPropNameInRow="Overdue" msprop:Generator_ColumnPropNameInTable="OverdueColumn" msprop:Generator_UserColumnName="Overdue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Date" msprop:Generator_ColumnVarNameInTable="columnDate" msprop:Generator_ColumnPropNameInRow="Date" msprop:Generator_ColumnPropNameInTable="DateColumn" msprop:Generator_UserColumnName="Date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Status" msprop:Generator_ColumnVarNameInTable="columnStatus" msprop:Generator_ColumnPropNameInRow="Status" msprop:Generator_ColumnPropNameInTable="StatusColumn" msprop:Generator_UserColumnName="Status" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Subject" msprop:Generator_ColumnVarNameInTable="columnSubject" msprop:Generator_ColumnPropNameInRow="Subject" msprop:Generator_ColumnPropNameInTable="SubjectColumn" msprop:Generator_UserColumnName="Subject" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="E_payment" msprop:Generator_TableClassName="E_paymentDataTable" msprop:Generator_TableVarName="tableE_payment" msprop:Generator_TablePropName="E_payment" msprop:Generator_RowDeletingName="E_paymentRowDeleting" msprop:Generator_RowChangingName="E_paymentRowChanging" msprop:Generator_RowEvHandlerName="E_paymentRowChangeEventHandler" msprop:Generator_RowDeletedName="E_paymentRowDeleted" msprop:Generator_UserTableName="E_payment" msprop:Generator_RowChangedName="E_paymentRowChanged" msprop:Generator_RowEvArgName="E_paymentRowChangeEvent" msprop:Generator_RowClassName="E_paymentRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
+              <xs:element name="E_ID" msprop:Generator_ColumnVarNameInTable="columnE_ID" msprop:Generator_ColumnPropNameInRow="E_ID" msprop:Generator_ColumnPropNameInTable="E_IDColumn" msprop:Generator_UserColumnName="E_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Branch" msprop:Generator_ColumnVarNameInTable="columnBranch" msprop:Generator_ColumnPropNameInRow="Branch" msprop:Generator_ColumnPropNameInTable="BranchColumn" msprop:Generator_UserColumnName="Branch" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Year" msprop:Generator_ColumnVarNameInTable="columnYear" msprop:Generator_ColumnPropNameInRow="Year" msprop:Generator_ColumnPropNameInTable="YearColumn" msprop:Generator_UserColumnName="Year" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Month" msprop:Generator_ColumnVarNameInTable="columnMonth" msprop:Generator_ColumnPropNameInRow="Month" msprop:Generator_ColumnPropNameInTable="MonthColumn" msprop:Generator_UserColumnName="Month" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Payment" msprop:Generator_ColumnVarNameInTable="columnPayment" msprop:Generator_ColumnPropNameInRow="Payment" msprop:Generator_ColumnPropNameInTable="PaymentColumn" msprop:Generator_UserColumnName="Payment" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Date" msprop:Generator_ColumnVarNameInTable="columnDate" msprop:Generator_ColumnPropNameInRow="Date" msprop:Generator_ColumnPropNameInTable="DateColumn" msprop:Generator_UserColumnName="Date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="E_type" msprop:Generator_ColumnVarNameInTable="columnE_type" msprop:Generator_ColumnPropNameInRow="E_type" msprop:Generator_ColumnPropNameInTable="E_typeColumn" msprop:Generator_UserColumnName="E_type" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Overdue" msprop:Generator_TableClassName="OverdueDataTable" msprop:Generator_TableVarName="tableOverdue" msprop:Generator_TablePropName="Overdue" msprop:Generator_RowDeletingName="OverdueRowDeleting" msprop:Generator_RowChangingName="OverdueRowChanging" msprop:Generator_RowEvHandlerName="OverdueRowChangeEventHandler" msprop:Generator_RowDeletedName="OverdueRowDeleted" msprop:Generator_UserTableName="Overdue" msprop:Generator_RowChangedName="OverdueRowChanged" msprop:Generator_RowEvArgName="OverdueRowChangeEvent" msprop:Generator_RowClassName="OverdueRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SID" msprop:Generator_ColumnVarNameInTable="columnSID" msprop:Generator_ColumnPropNameInRow="SID" msprop:Generator_ColumnPropNameInTable="SIDColumn" msprop:Generator_UserColumnName="SID" type="xs:int" minOccurs="0" />
+              <xs:element name="Name" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Branch" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnBranch" msprop:Generator_ColumnPropNameInRow="Branch" msprop:Generator_ColumnPropNameInTable="BranchColumn" msprop:Generator_UserColumnName="Branch" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Subject" msprop:Generator_ColumnVarNameInTable="columnSubject" msprop:Generator_ColumnPropNameInRow="Subject" msprop:Generator_ColumnPropNameInTable="SubjectColumn" msprop:Generator_UserColumnName="Subject" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Fee" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnFee" msprop:Generator_ColumnPropNameInRow="Fee" msprop:Generator_ColumnPropNameInTable="FeeColumn" msprop:Generator_UserColumnName="Fee" type="xs:decimal" minOccurs="0" />
+              <xs:element name="payed" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnpayed" msprop:Generator_ColumnPropNameInRow="payed" msprop:Generator_ColumnPropNameInTable="payedColumn" msprop:Generator_UserColumnName="payed" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Overdue" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnOverdue" msprop:Generator_ColumnPropNameInRow="Overdue" msprop:Generator_ColumnPropNameInTable="OverdueColumn" msprop:Generator_UserColumnName="Overdue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="LastPayDate" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnLastPayDate" msprop:Generator_ColumnPropNameInRow="LastPayDate" msprop:Generator_ColumnPropNameInTable="LastPayDateColumn" msprop:Generator_UserColumnName="LastPayDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DateDiff" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnDateDiff" msprop:Generator_ColumnPropNameInRow="DateDiff" msprop:Generator_ColumnPropNameInTable="DateDiffColumn" msprop:Generator_UserColumnName="DateDiff" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Subject" msprop:Generator_TableClassName="SubjectDataTable" msprop:Generator_TableVarName="tableSubject" msprop:Generator_RowChangedName="SubjectRowChanged" msprop:Generator_TablePropName="Subject" msprop:Generator_RowDeletingName="SubjectRowDeleting" msprop:Generator_RowChangingName="SubjectRowChanging" msprop:Generator_RowEvHandlerName="SubjectRowChangeEventHandler" msprop:Generator_RowDeletedName="SubjectRowDeleted" msprop:Generator_RowClassName="SubjectRow" msprop:Generator_UserTableName="Subject" msprop:Generator_RowEvArgName="SubjectRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Branch" msprop:Generator_ColumnVarNameInTable="columnBranch" msprop:Generator_ColumnPropNameInRow="Branch" msprop:Generator_ColumnPropNameInTable="BranchColumn" msprop:Generator_UserColumnName="Branch" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Year" msprop:Generator_ColumnVarNameInTable="columnYear" msprop:Generator_ColumnPropNameInRow="Year" msprop:Generator_ColumnPropNameInTable="YearColumn" msprop:Generator_UserColumnName="Year" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Month" msprop:Generator_ColumnVarNameInTable="columnMonth" msprop:Generator_ColumnPropNameInRow="Month" msprop:Generator_ColumnPropNameInTable="MonthColumn" msprop:Generator_UserColumnName="Month" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Fee" msprop:Generator_ColumnVarNameInTable="columnFee" msprop:Generator_ColumnPropNameInRow="Fee" msprop:Generator_ColumnPropNameInTable="FeeColumn" msprop:Generator_UserColumnName="Fee" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Grade" msprop:Generator_ColumnVarNameInTable="columnGrade" msprop:Generator_ColumnPropNameInRow="Grade" msprop:Generator_ColumnPropNameInTable="GradeColumn" msprop:Generator_UserColumnName="Grade" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Complete_Payment" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnComplete_Payment" msprop:Generator_ColumnPropNameInRow="Complete_Payment" msprop:Generator_ColumnPropNameInTable="Complete_PaymentColumn" msprop:Generator_UserColumnName="Complete_Payment" type="xs:int" minOccurs="0" />
+              <xs:element name="Registered_Student" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnRegistered_Student" msprop:Generator_ColumnPropNameInRow="Registered_Student" msprop:Generator_ColumnPropNameInTable="Registered_StudentColumn" msprop:Generator_UserColumnName="Registered_Student" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Student" msprop:Generator_TableClassName="StudentDataTable" msprop:Generator_TableVarName="tableStudent" msprop:Generator_TablePropName="Student" msprop:Generator_RowDeletingName="StudentRowDeleting" msprop:Generator_RowChangingName="StudentRowChanging" msprop:Generator_RowEvHandlerName="StudentRowChangeEventHandler" msprop:Generator_RowDeletedName="StudentRowDeleted" msprop:Generator_UserTableName="Student" msprop:Generator_RowChangedName="StudentRowChanged" msprop:Generator_RowEvArgName="StudentRowChangeEvent" msprop:Generator_RowClassName="StudentRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Stu_ID" msprop:Generator_ColumnVarNameInTable="columnStu_ID" msprop:Generator_ColumnPropNameInRow="Stu_ID" msprop:Generator_ColumnPropNameInTable="Stu_IDColumn" msprop:Generator_UserColumnName="Stu_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Branch" msprop:Generator_ColumnVarNameInTable="columnBranch" msprop:Generator_ColumnPropNameInRow="Branch" msprop:Generator_ColumnPropNameInTable="BranchColumn" msprop:Generator_UserColumnName="Branch" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Subject" msprop:Generator_ColumnVarNameInTable="columnSubject" msprop:Generator_ColumnPropNameInRow="Subject" msprop:Generator_ColumnPropNameInTable="SubjectColumn" msprop:Generator_UserColumnName="Subject" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Reg_Date" msprop:Generator_ColumnVarNameInTable="columnReg_Date" msprop:Generator_ColumnPropNameInRow="Reg_Date" msprop:Generator_ColumnPropNameInTable="Reg_DateColumn" msprop:Generator_UserColumnName="Reg_Date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Payed" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnPayed" msprop:Generator_ColumnPropNameInRow="Payed" msprop:Generator_ColumnPropNameInTable="PayedColumn" msprop:Generator_UserColumnName="Payed" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Overdue" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnOverdue" msprop:Generator_ColumnPropNameInRow="Overdue" msprop:Generator_ColumnPropNameInTable="OverdueColumn" msprop:Generator_UserColumnName="Overdue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Status" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnStatus" msprop:Generator_ColumnPropNameInRow="Status" msprop:Generator_ColumnPropNameInTable="StatusColumn" msprop:Generator_UserColumnName="Status" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Profit" msprop:Generator_TableClassName="ProfitDataTable" msprop:Generator_TableVarName="tableProfit" msprop:Generator_RowChangedName="ProfitRowChanged" msprop:Generator_TablePropName="Profit" msprop:Generator_RowDeletingName="ProfitRowDeleting" msprop:Generator_RowChangingName="ProfitRowChanging" msprop:Generator_RowEvHandlerName="ProfitRowChangeEventHandler" msprop:Generator_RowDeletedName="ProfitRowDeleted" msprop:Generator_RowClassName="ProfitRow" msprop:Generator_UserTableName="Profit" msprop:Generator_RowEvArgName="ProfitRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Year" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnYear" msprop:Generator_ColumnPropNameInRow="Year" msprop:Generator_ColumnPropNameInTable="YearColumn" msprop:Generator_UserColumnName="Year" type="xs:int" minOccurs="0" />
+              <xs:element name="Month" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnMonth" msprop:Generator_ColumnPropNameInRow="Month" msprop:Generator_ColumnPropNameInTable="MonthColumn" msprop:Generator_UserColumnName="Month" type="xs:int" minOccurs="0" />
+              <xs:element name="S_income" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnS_income" msprop:Generator_ColumnPropNameInRow="S_income" msprop:Generator_ColumnPropNameInTable="S_incomeColumn" msprop:Generator_UserColumnName="S_income" type="xs:decimal" minOccurs="0" />
+              <xs:element name="E_Payments" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnE_Payments" msprop:Generator_ColumnPropNameInRow="E_Payments" msprop:Generator_ColumnPropNameInTable="E_PaymentsColumn" msprop:Generator_UserColumnName="E_Payments" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Profit" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnProfit" msprop:Generator_ColumnPropNameInRow="Profit" msprop:Generator_ColumnPropNameInTable="ProfitColumn" msprop:Generator_UserColumnName="Profit" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Last_payment" />
+      <xs:field xpath="mstns:ID" />
+    </xs:unique>
+    <xs:unique name="E_payment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:E_payment" />
+      <xs:field xpath="mstns:ID" />
+    </xs:unique>
+    <xs:unique name="Subject_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Subject" />
+      <xs:field xpath="mstns:ID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>
